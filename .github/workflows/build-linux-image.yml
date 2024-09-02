@@ -19,11 +19,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3.1.0
+        uses: docker/setup-qemu-action@v3.2.0
       - name: Pull Latest Linux Base Image
         run: docker pull debian:bullseye-slim
       - name: Build Linux Image
-        uses: docker/build-push-action@v6.4.0
+        uses: docker/build-push-action@v6.7.0
         with:
           context: .
           file: ./linux.Dockerfile
@@ -38,13 +38,13 @@ jobs:
         run: docker run --rm lacledeslan/gamesvr-cssource:latest /app/ll-tests/gamesvr-cssource.sh
       - name: Login to DockerHub
         if: ${{ github.event_name != 'pull_request' }}
-        uses: docker/login-action@v3.2.0
+        uses: docker/login-action@v3.3.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Login to GitHub Container Registry
         if: ${{ github.event_name != 'pull_request' }}
-        uses: docker/login-action@v3.2.0
+        uses: docker/login-action@v3.3.0
         with:
           registry: ghcr.io
           username: ${{ secrets.GHCR_USERNAME }}
